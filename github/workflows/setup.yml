@@ -1,0 +1,34 @@
+name: Initial Repo Setup
+on:
+  workflow_dispatch: # This allows you to run it manually
+
+jobs:
+  create-structure:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Create Directories and Files
+        run: |
+          mkdir -p manuscript assets/images assets/figures assets/diagrams
+          mkdir -p appendices extras/companion-website build/pdf build/epub build/html tools
+          
+          # Create Manuscript files
+          touch manuscript/00-preface.md manuscript/01-question-backwards.md manuscript/02-verb-coin-framework.md
+          touch manuscript/03-mathematics-grammar.md manuscript/04-recursion.md manuscript/05-cosmology.md
+          touch manuscript/06-biology.md manuscript/07-consciousness.md manuscript/08-ai-technology.md
+          touch manuscript/09-resolutions.md manuscript/10-epilogue.md
+
+          # Create Appendices
+          touch appendices/A-glossary.md appendices/B-mathematical-notes.md appendices/C-further-reading.md
+          touch appendices/D-acknowledgments.md appendices/E-references.md
+
+          # Create Root files
+          touch SUMMARY.md book.toml book.json LICENSE CONTRIBUTING.md CHANGELOG.md
+          
+      - name: Commit and Push
+        run: |
+          git config --global user.name "GitHub Action"
+          git config --global user.email "action@github.com"
+          git add .
+          git commit -m "Automated directory structure creation"
+          git push
